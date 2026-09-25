@@ -6,7 +6,6 @@
 ![Status](https://img.shields.io/badge/status-preprint%20v0.2-blue)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)
 
-**Status:** Preprint v0.2. Target venue: IEEE TNNLS. [Read the paper (PDF)](paper/WEVA.pdf) · [LaTeX source](paper/WEVA_paper.tex)
 
 ---
 
