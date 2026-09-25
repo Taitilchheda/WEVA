@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 600" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="gShared" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2E75B6"/>
+    </linearGradient>
+    <linearGradient id="gBox" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D6E4F7"/>
+      <stop offset="100%" stop-color="#A8C4E0"/>
+    </linearGradient>
+    <marker id="arrow4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#1B2A4A">Modality Token + Shared Backbone: One Path for All Four Modalities</text>
+  <text x="550" y="58" text-anchor="middle" font-size="13" fill="#5D6D7E">The same USE+SWM blocks process all modalities. The only modality-specific pieces are the input frontend and the output head.</text>
+
+  <!-- Four input streams merging into the shared backbone -->
+  <g>
+    <rect x="40" y="100" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="140" y="124" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">[TEXT_TOKEN]</text>
+    <text x="140" y="142" text-anchor="middle" font-size="10" fill="#1B2A4A">idx=0, learned</text>
+  </g>
+  <g>
+    <rect x="40" y="200" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="140" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">[IMAGE_TOKEN]</text>
+    <text x="140" y="242" text-anchor="middle" font-size="10" fill="#1B2A4A">idx=1, learned</text>
+  </g>
+  <g>
+    <rect x="40" y="300" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="140" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">[AUDIO_TOKEN]</text>
+    <text x="140" y="342" text-anchor="middle" font-size="10" fill="#1B2A4A">idx=2, learned</text>
+  </g>
+  <g>
+    <rect x="40" y="400" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="140" y="424" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">[VIDEO_TOKEN]</text>
+    <text x="140" y="442" text-anchor="middle" font-size="10" fill="#1B2A4A">idx=3, learned</text>
+  </g>
+
+  <!-- Big shared backbone box -->
+  <rect x="320" y="100" width="500" height="350" rx="14" fill="url(#gShared)"/>
+  <text x="570" y="134" text-anchor="middle" font-size="18" font-weight="bold" fill="white">★ SHARED SWM BACKBONE ★</text>
+  <text x="570" y="158" text-anchor="middle" font-size="13" fill="#D6E4F7">Same N layers, same params, for all 4 modalities</text>
+
+  <rect x="350" y="180" width="440" height="50" rx="6" fill="white" fill-opacity="0.15" stroke="white" stroke-width="1"/>
+  <text x="570" y="200" text-anchor="middle" font-size="13" font-weight="bold" fill="white">SWM Block 1</text>
+  <text x="570" y="218" text-anchor="middle" font-size="10" fill="#D6E4F7">MHSWM + FRN + residual</text>
+
+  <rect x="350" y="240" width="440" height="50" rx="6" fill="white" fill-opacity="0.15" stroke="white" stroke-width="1"/>
+  <text x="570" y="260" text-anchor="middle" font-size="13" font-weight="bold" fill="white">SWM Block 2</text>
+  <text x="570" y="278" text-anchor="middle" font-size="10" fill="#D6E4F7">MHSWM + FRN + residual</text>
+
+  <rect x="350" y="300" width="440" height="50" rx="6" fill="white" fill-opacity="0.15" stroke="white" stroke-width="1"/>
+  <text x="570" y="320" text-anchor="middle" font-size="13" font-weight="bold" fill="white">⋮</text>
+
+  <rect x="350" y="360" width="440" height="50" rx="6" fill="white" fill-opacity="0.15" stroke="white" stroke-width="1"/>
+  <text x="570" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="white">SWM Block N</text>
+  <text x="570" y="398" text-anchor="middle" font-size="10" fill="#D6E4F7">N ∈ {4, 8, 12} for Tiny/Small/Medium</text>
+
+  <!-- Arrows into backbone (4 paths merging) -->
+  <g stroke="#1B2A4A" stroke-width="1.5" fill="none">
+    <path d="M240 125 L300 125 L300 250 L320 250" marker-end="url(#arrow4)"/>
+    <path d="M240 225 L310 225 L310 260 L320 260" marker-end="url(#arrow4)"/>
+    <path d="M240 325 L300 325 L300 280 L320 280" marker-end="url(#arrow4)"/>
+    <path d="M240 425 L280 425 L280 290 L320 290" marker-end="url(#arrow4)"/>
+  </g>
+
+  <!-- Four output heads -->
+  <g>
+    <rect x="860" y="100" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="960" y="124" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Text head</text>
+    <text x="960" y="142" text-anchor="middle" font-size="10" fill="#1B2A4A">mean-pool → 256-d</text>
+  </g>
+  <g>
+    <rect x="860" y="200" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="960" y="224" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Image head</text>
+    <text x="960" y="242" text-anchor="middle" font-size="10" fill="#1B2A4A">mean-pool → 256-d</text>
+  </g>
+  <g>
+    <rect x="860" y="300" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="960" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Audio head</text>
+    <text x="960" y="342" text-anchor="middle" font-size="10" fill="#1B2A4A">mean-pool → 256-d</text>
+  </g>
+  <g>
+    <rect x="860" y="400" width="200" height="50" rx="8" fill="url(#gBox)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="960" y="424" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Video head</text>
+    <text x="960" y="442" text-anchor="middle" font-size="10" fill="#1B2A4A">mean-pool → 256-d</text>
+  </g>
+
+  <!-- Arrows out -->
+  <g stroke="#1B2A4A" stroke-width="1.5" fill="none">
+    <path d="M820 250 L840 250 L840 125 L860 125" marker-end="url(#arrow4)"/>
+    <path d="M820 260 L860 225" marker-end="url(#arrow4)"/>
+    <path d="M820 270 L860 325" marker-end="url(#arrow4)"/>
+    <path d="M820 280 L840 280 L840 425 L860 425" marker-end="url(#arrow4)"/>
+  </g>
+
+  <!-- Bottom callout -->
+  <rect x="40" y="490" width="1020" height="90" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="60" y="516" font-size="14" font-weight="bold" fill="#1B2A4A">★ Modality token = the only modality-specific routing in the backbone.</text>
+  <text x="60" y="540" font-size="12" fill="#1B2A4A">A single learned embedding (4 in total) is prepended to the wave-primitive sequence. The SWM blocks do not see "this is a text vs an image" through</text>
+  <text x="60" y="558" font-size="12" fill="#1B2A4A">anything other than the token. Modality-agnosticism = "the only difference between text and image is one learned 256-dim vector."</text>
+</svg>

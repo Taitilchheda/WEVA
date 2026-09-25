@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D6E4F7"/>
+      <stop offset="100%" stop-color="#A8C4E0"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EAFAF1"/>
+      <stop offset="100%" stop-color="#A9DFBF"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF9E7"/>
+      <stop offset="100%" stop-color="#F7DC6F"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDEDEC"/>
+      <stop offset="100%" stop-color="#F5B7B1"/>
+    </linearGradient>
+    <linearGradient id="gBackbone" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2E75B6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="36" text-anchor="middle" font-size="26" font-weight="bold" fill="#1B2A4A">WEVA-v2: Unified Multimodal Spectral Architecture</text>
+  <text x="600" y="60" text-anchor="middle" font-size="14" fill="#5D6D7E">One shared spectral encoder and one shared Spectral Wave Mixer process text, image, audio, and video as the same kind of wave-primitive representation.</text>
+
+  <!-- Modality inputs (4 boxes) -->
+  <g>
+    <rect x="40"  y="120" width="160" height="80" rx="8" fill="url(#g1)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="120" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Text</text>
+    <text x="120" y="170" text-anchor="middle" font-size="11" fill="#1B2A4A">BPE tokens</text>
+    <text x="120" y="186" text-anchor="middle" font-size="11" fill="#1B2A4A">(B, L)</text>
+  </g>
+  <g>
+    <rect x="40"  y="220" width="160" height="80" rx="8" fill="url(#g2)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="120" y="250" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Image</text>
+    <text x="120" y="270" text-anchor="middle" font-size="11" fill="#1B2A4A">16×16 patches</text>
+    <text x="120" y="286" text-anchor="middle" font-size="11" fill="#1B2A4A">(B, 3, 224, 224)</text>
+  </g>
+  <g>
+    <rect x="40"  y="320" width="160" height="80" rx="8" fill="url(#g3)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="120" y="350" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Audio</text>
+    <text x="120" y="370" text-anchor="middle" font-size="11" fill="#1B2A4A">STFT log-mag</text>
+    <text x="120" y="386" text-anchor="middle" font-size="11" fill="#1B2A4A">(B, T_spec, n_freq)</text>
+  </g>
+  <g>
+    <rect x="40"  y="420" width="160" height="80" rx="8" fill="url(#g4)" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="120" y="450" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Video</text>
+    <text x="120" y="470" text-anchor="middle" font-size="11" fill="#1B2A4A">Per-frame patches +</text>
+    <text x="120" y="486" text-anchor="middle" font-size="11" fill="#1B2A4A">temporal pool</text>
+  </g>
+
+  <!-- Arrows to USE -->
+  <g stroke="#1B2A4A" stroke-width="1.5" fill="none">
+    <path d="M200 160 L260 160 L260 350 L300 350" />
+    <path d="M200 260 L280 260 L280 350 L300 350" />
+    <path d="M200 360 L300 360" />
+    <path d="M200 460 L260 460 L260 350 L300 350" />
+  </g>
+
+  <!-- Universal Spectral Encoder -->
+  <rect x="300" y="260" width="220" height="180" rx="10" fill="url(#gBackbone)"/>
+  <text x="410" y="290" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Universal Spectral</text>
+  <text x="410" y="310" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Encoder (USE)</text>
+  <text x="410" y="340" text-anchor="middle" font-size="11" fill="#D6E4F7">Modality-specific frontend</text>
+  <text x="410" y="358" text-anchor="middle" font-size="11" fill="#D6E4F7">→ real embedding (B, N, d)</text>
+  <text x="410" y="382" text-anchor="middle" font-size="11" fill="white" font-weight="bold">★ Shared Wave Projection ★</text>
+  <text x="410" y="402" text-anchor="middle" font-size="10" fill="#D6E4F7">A·exp(i·φ) + proj(x)</text>
+  <text x="410" y="420" text-anchor="middle" font-size="10" fill="#D6E4F7">(one nn.Linear for all modalities)</text>
+
+  <!-- Arrow to backbone -->
+  <line x1="520" y1="350" x2="580" y2="350" stroke="#1B2A4A" stroke-width="2" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+  </defs>
+
+  <!-- Shared SWM Backbone -->
+  <rect x="580" y="240" width="240" height="220" rx="10" fill="url(#gBackbone)"/>
+  <text x="700" y="270" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Shared SWM Backbone</text>
+  <text x="700" y="294" text-anchor="middle" font-size="11" fill="#D6E4F7">N × SWM Block</text>
+  <text x="700" y="316" text-anchor="middle" font-size="11" fill="white">Multi-Head Spectral</text>
+  <text x="700" y="332" text-anchor="middle" font-size="11" fill="white">Wave Mixer (MHSWM)</text>
+  <text x="700" y="360" text-anchor="middle" font-size="11" fill="#D6E4F7">+ LayerNorm + residual</text>
+  <text x="700" y="386" text-anchor="middle" font-size="11" fill="#D6E4F7">FRN: sin(ω₀·Wx + b)</text>
+  <text x="700" y="410" text-anchor="middle" font-size="11" fill="white" font-weight="bold">★ Same params for all 4 modalities ★</text>
+  <text x="700" y="430" text-anchor="middle" font-size="10" fill="#D6E4F7">Complexity: O(N log N · d)</text>
+  <text x="700" y="448" text-anchor="middle" font-size="10" fill="#D6E4F7">(vs transformer O(N²·d))</text>
+
+  <!-- Arrow to heads -->
+  <line x1="820" y1="350" x2="880" y2="350" stroke="#1B2A4A" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Per-modality projection heads -->
+  <rect x="880" y="120" width="160" height="60" rx="6" fill="url(#g1)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="960" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Text head</text>
+  <text x="960" y="166" text-anchor="middle" font-size="11" fill="#1B2A4A">→ 256-d L2-norm</text>
+
+  <rect x="880" y="220" width="160" height="60" rx="6" fill="url(#g2)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="960" y="246" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Image head</text>
+  <text x="960" y="266" text-anchor="middle" font-size="11" fill="#1B2A4A">→ 256-d L2-norm</text>
+
+  <rect x="880" y="320" width="160" height="60" rx="6" fill="url(#g3)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="960" y="346" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Audio head</text>
+  <text x="960" y="366" text-anchor="middle" font-size="11" fill="#1B2A4A">→ 256-d L2-norm</text>
+
+  <rect x="880" y="420" width="160" height="60" rx="6" fill="url(#g4)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="960" y="446" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Video head</text>
+  <text x="960" y="466" text-anchor="middle" font-size="11" fill="#1B2A4A">→ 256-d L2-norm</text>
+
+  <g stroke="#1B2A4A" stroke-width="1.5" fill="none">
+    <path d="M820 350 L880 150" marker-end="url(#arrow)"/>
+    <path d="M820 350 L880 250" marker-end="url(#arrow)"/>
+    <path d="M820 350 L880 350" marker-end="url(#arrow)"/>
+    <path d="M820 350 L880 450" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Bottom: contrastive loss -->
+  <rect x="300" y="500" width="800" height="80" rx="10" fill="#1B2A4A"/>
+  <text x="700" y="530" text-anchor="middle" font-size="16" font-weight="bold" fill="white">Multimodal Contrastive Loss (InfoNCE over 12 ordered modality pairs)</text>
+  <text x="700" y="554" text-anchor="middle" font-size="12" fill="#D6E4F7">L = (1/12) Σ_{(m1,m2)} InfoNCE(emb(m1), emb(m2), τ=0.07)</text>
+
+  <!-- Bottom callouts -->
+  <rect x="40" y="620" width="380" height="80" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="60" y="645" font-size="13" font-weight="bold" fill="#1B2A4A">★ Novelty:</text>
+  <text x="60" y="666" font-size="11" fill="#1B2A4A">The same USE projection and the same SWM backbone</text>
+  <text x="60" y="682" font-size="11" fill="#1B2A4A">process all four modalities — no modality-specific towers.</text>
+
+  <rect x="440" y="620" width="380" height="80" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="460" y="645" font-size="13" font-weight="bold" fill="#1B2A4A">★ Complexity:</text>
+  <text x="460" y="666" font-size="11" fill="#1B2A4A">O(N log N · d) per modality, independent of modality type.</text>
+  <text x="460" y="682" font-size="11" fill="#1B2A4A">~50% fewer mixer parameters than standard attention.</text>
+
+  <rect x="840" y="620" width="320" height="80" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="860" y="645" font-size="13" font-weight="bold" fill="#1B2A4A">★ Models: 16M / 35M / 60M</text>
+  <text x="860" y="666" font-size="11" fill="#1B2A4A">Tiny / Small / Medium</text>
+  <text x="860" y="682" font-size="11" fill="#1B2A4A">Trainable on RTX 3060 (12GB).</text>
+</svg>

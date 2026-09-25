@@ -1,0 +1,92 @@
+# Credentials and private key material
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets/
+**/credentials/
+**/credentials.*
+**/secret.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*_rsa
+*_ed25519
+
+# Local tooling and machine-specific settings
+.claude/
+.graphify_python
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Image and visual-design assets
+*.ai
+*.avif
+*.bmp
+*.gif
+*.heic
+*.ico
+*.jpeg
+*.jpg
+*.tif
+*.tiff
+*.webp
+
+# Python-generated files and local environments
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Temporary output and caches
+*.log
+logs/
+**/cache/
+graphify-out/converted/
+
+# Attached research documents and generated analysis
+/graphify-out/
+/2x/
+/3x/
+/diagrams/11_use_architecture.mmd
+/diagrams/11_use_architecture.svg
+/diagrams/11b_use_architecture_color.svg
+/diagrams/12_weva_architecture.mmd
+/diagrams/12_weva_architecture.svg
+/diagrams/12b_weva_architecture_color.svg
+/diagrams/zafir_diagram_audit.md
+/diagrams/zafir_diagram_corrected.mmd
+/docs/MODALITY_TOKEN.md
+/docs/WEVA_DESIGN.md
+/docs/WEVA_Four_Proposals.md
+/docs/WEVA_PhD_Research_Document.docx
+/paper/JOURNAL_LIST.md
+/paper/WEVA_paper final.tex
+/paper/WEVA_paper.md
+/paper/WEVA_paper_v2.md
+/paper/WEVA.pdf
+/paper/WEVA final.pdf
+/chat_interface/README.md
+/chat_interface/data/README.md

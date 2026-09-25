@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WEVA — Multimodal Retrieval Chat</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>WEVA — Multimodal Retrieval Chat</h1>
+    <p class="tagline">Type text, or drop an image / audio / video. WEVA finds the most similar items in its database.</p>
+    <p class="disclaimer">
+      <em>This is a retrieval interface, not a generative chatbot. WEVA does not produce free-form text. The "chat" responses are template-based natural-language renderings of cosine-similarity matches.</em>
+    </p>
+  </header>
+
+  <main>
+    <section class="chat" id="chat">
+      <div class="placeholder">No queries yet. Send a message to start.</div>
+    </section>
+
+    <form id="query-form" enctype="multipart/form-data">
+      <div class="row">
+        <label>Text
+          <input type="text" name="text" id="text-input" placeholder="a dog running on the beach" autocomplete="off">
+        </label>
+      </div>
+      <div class="row">
+        <label>Image <input type="file" name="image" accept="image/*"></label>
+        <label>Audio <input type="file" name="audio" accept="audio/*"></label>
+        <label>Video <input type="file" name="video" accept="video/*"></label>
+      </div>
+      <div class="row">
+        <label>Top-K <input type="number" name="top_k" value="5" min="1" max="20" style="width: 4em"></label>
+        <button type="submit">Query</button>
+        <span class="status" id="status"></span>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('query-form');
+    const chat = document.getElementById('chat');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      for (const f of ['image', 'audio', 'video']) {
+        if (data.get(f) && data.get(f).size === 0) data.delete(f);
+      }
+      status.textContent = 'Querying WEVA...';
+      try {
+        const r = await fetch('/api/query', { method: 'POST', body: data });
+        const j = await r.json();
+        status.textContent = r.ok ? '' : 'Error: ' + (j.error || 'unknown');
+        if (r.ok) appendResponse(j);
+      } catch (err) {
+        status.textContent = 'Error: ' + err.message;
+      }
+    });
+
+    function appendResponse(j) {
+      const placeholder = chat.querySelector('.placeholder');
+      if (placeholder) placeholder.remove();
+
+      const userText = (form.querySelector('#text-input').value || '').trim()
+        || 'uploaded file';
+      const u = document.createElement('div');
+      u.className = 'msg user';
+      u.textContent = '> ' + userText;
+      chat.appendChild(u);
+
+      const a = document.createElement('div');
+      a.className = 'msg assistant';
+      a.innerHTML = '<strong>WEVA:</strong> ' + escapeHtml(j.summary) +
+        '<ul>' + j.matches.map(m =>
+          '<li><code>' + m.id + '</code> — score ' + m.score.toFixed(3) +
+          (m.text ? ' — "' + escapeHtml((m.text || '').slice(0, 80)) + '"' : '') +
+          (m.image_path ? ' <span class="imgpath">(' + m.image_path + ')</span>' : '') +
+          '</li>'
+        ).join('') + '</ul>';
+      chat.appendChild(a);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+      );
+    }
+  </script>
+</body>
+</html>

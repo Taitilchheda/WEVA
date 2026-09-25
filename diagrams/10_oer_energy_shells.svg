@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="gBox" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D6E4F7"/>
+      <stop offset="100%" stop-color="#A8C4E0"/>
+    </linearGradient>
+    <radialGradient id="gAtom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2E75B6"/>
+    </radialGradient>
+    <marker id="arr10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#1B2A4A">Orbital Energy Regularization (OER) — The Side Experiment</text>
+  <text x="550" y="58" text-anchor="middle" font-size="13" fill="#5D6D7E">A training-time penalty inspired by atomic-orbital energy shells. Steers parameter norms toward the first K hydrogen-orbital energies (rescaled). We tried it; it does not help at our scale. Documented in Appendix A for completeness.</text>
+
+  <!-- Left: atomic orbital diagram -->
+  <g>
+    <rect x="40" y="90" width="380" height="360" rx="8" fill="white" stroke="#1B2A4A" stroke-width="1"/>
+    <text x="230" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Atomic-orbital analogy</text>
+    <text x="230" y="132" text-anchor="middle" font-size="11" fill="#5D6D7E" font-style="italic">hydrogen energy levels: E_n = -13.6 / n² eV</text>
+
+    <!-- nucleus -->
+    <circle cx="230" cy="320" r="14" fill="url(#gAtom)"/>
+    <text x="230" y="324" text-anchor="middle" font-size="9" font-weight="bold" fill="white">+</text>
+
+    <!-- shell 1 -->
+    <circle cx="230" cy="320" r="60" fill="none" stroke="#1A7A4A" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="290" y="262" font-size="11" font-weight="bold" fill="#1A7A4A">n=1</text>
+    <text x="290" y="276" font-size="10" fill="#1A7A4A">E₁ = -13.6 eV</text>
+
+    <!-- shell 2 -->
+    <circle cx="230" cy="320" r="110" fill="none" stroke="#2E75B6" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="350" y="210" font-size="11" font-weight="bold" fill="#2E75B6">n=2</text>
+    <text x="350" y="224" font-size="10" fill="#2E75B6">E₂ = -3.4 eV</text>
+
+    <!-- shell 3 -->
+    <circle cx="230" cy="320" r="160" fill="none" stroke="#7D6608" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="400" y="160" font-size="11" font-weight="bold" fill="#7D6608">n=3</text>
+    <text x="400" y="174" font-size="10" fill="#7D6608">E₃ = -1.5 eV</text>
+
+    <text x="230" y="430" text-anchor="middle" font-size="11" fill="#1B2A4A" font-style="italic">Stable training corresponds to the parameter energy</text>
+    <text x="230" y="445" text-anchor="middle" font-size="11" fill="#1B2A4A" font-style="italic">"settling" into one of these shells.</text>
+  </g>
+
+  <!-- arrow + transformer -->
+  <line x1="420" y1="270" x2="490" y2="270" stroke="#1B2A4A" stroke-width="2" marker-end="url(#arr10)"/>
+  <text x="455" y="262" text-anchor="middle" font-size="10" font-weight="bold" fill="#1B2A4A">rescale</text>
+
+  <!-- Right: parameter shells -->
+  <g>
+    <rect x="490" y="90" width="570" height="360" rx="8" fill="white" stroke="#1B2A4A" stroke-width="1"/>
+    <text x="775" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Parameter "shells" in WEVA</text>
+    <text x="775" y="132" text-anchor="middle" font-size="11" fill="#5D6D7E" font-style="italic">E(θ) = ‖∇L‖² + λ ‖θ‖² ; pick K target shells and softly minimise the gap.</text>
+
+    <!-- parameter space visualisation: gradient norm vs weight norm -->
+    <line x1="540" y1="420" x2="1040" y2="420" stroke="#1B2A4A" stroke-width="1.5"/>
+    <line x1="540" y1="170" x2="540" y2="420" stroke="#1B2A4A" stroke-width="1.5"/>
+    <text x="800" y="445" text-anchor="middle" font-size="11" fill="#1B2A4A">‖θ‖² (weight norm)</text>
+    <text x="525" y="295" text-anchor="middle" font-size="11" fill="#1B2A4A" transform="rotate(-90, 525, 295)">‖∇L‖² (gradient norm)</text>
+
+    <!-- shells as concentric rings around a "valley" point -->
+    <ellipse cx="790" cy="280" rx="40" ry="22" fill="none" stroke="#1A7A4A" stroke-width="2"/>
+    <text x="838" y="284" font-size="10" font-weight="bold" fill="#1A7A4A">shell 1</text>
+
+    <ellipse cx="790" cy="280" rx="80" ry="45" fill="none" stroke="#2E75B6" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="876" y="284" font-size="10" font-weight="bold" fill="#2E75B6">shell 2</text>
+
+    <ellipse cx="790" cy="280" rx="130" ry="75" fill="none" stroke="#7D6608" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="926" y="284" font-size="10" font-weight="bold" fill="#7D6608">shell 3</text>
+
+    <!-- a sample trajectory -->
+    <polyline fill="none" stroke="#922B21" stroke-width="2.5" points="
+      600,380  650,360  700,335  740,310  770,290  790,280  810,285  840,295  870,300"/>
+    <circle cx="790" cy="280" r="4" fill="#922B21"/>
+    <text x="700" y="395" font-size="10" font-style="italic" fill="#922B21">sample SGD trajectory (settles into shell 1)</text>
+  </g>
+
+  <!-- Bottom: formula + verdict -->
+  <rect x="40" y="470" width="1020" height="130" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="60" y="498" font-size="14" font-weight="bold" fill="#1B2A4A">Soft-min OER penalty (v2):</text>
+  <text x="60" y="522" font-family="Courier New, monospace" font-size="14" fill="#1B2A4A" font-weight="bold">L_OER = -τ · log Σ_k exp(-(E(θ_l) - E*_k)² / τ)         E*_k = -α / k²  (rescaled hydrogen energies)</text>
+  <text x="60" y="550" font-size="13" font-weight="bold" fill="#922B21">Verdict: at WEVA-Small on COCO 5K, OER is neutral at λ=0.01 and hurts at λ≥0.1 (R@1 drops from 20.6 to 17.2).</text>
+  <text x="60" y="572" font-size="11" fill="#5D6D7E" font-style="italic">★ We do not use OER in the headline result. The mechanism may help at larger scale or with a different loss weighting — left to future work.</text>
+  <text x="60" y="592" font-size="11" fill="#5D6D7E" font-style="italic">The OER story was the v1 origin of the WEVA name (Wave-Energy Vibrational Architecture) and is preserved here as the appendix experiment.</text>
+</svg>

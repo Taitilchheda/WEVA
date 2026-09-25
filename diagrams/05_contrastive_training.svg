@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="gText" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D6E4F7"/>
+      <stop offset="100%" stop-color="#A8C4E0"/>
+    </linearGradient>
+    <linearGradient id="gImage" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EAFAF1"/>
+      <stop offset="100%" stop-color="#A9DFBF"/>
+    </linearGradient>
+    <linearGradient id="gAudio" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF9E7"/>
+      <stop offset="100%" stop-color="#F7DC6F"/>
+    </linearGradient>
+    <linearGradient id="gVideo" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDEDEC"/>
+      <stop offset="100%" stop-color="#F5B7B1"/>
+    </linearGradient>
+    <linearGradient id="gShared" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2E75B6"/>
+    </linearGradient>
+    <marker id="arrow5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#1B2A4A">Multimodal Contrastive Training Objective</text>
+  <text x="550" y="58" text-anchor="middle" font-size="13" fill="#5D6D7E">Within a batch of B (text, image, audio, video) tuples, we have 4B representations and 12 ordered modality pairs to align.</text>
+
+  <!-- Central batch box -->
+  <rect x="380" y="100" width="340" height="200" rx="12" fill="url(#gShared)"/>
+  <text x="550" y="130" text-anchor="middle" font-size="16" font-weight="bold" fill="white">A batch of B tuples</text>
+  <text x="550" y="152" text-anchor="middle" font-size="12" fill="#D6E4F7">Each item contains all 4 modalities</text>
+  <text x="550" y="174" text-anchor="middle" font-size="11" fill="#D6E4F7">T_i, I_i, A_i, V_i are the 4 views of</text>
+  <text x="550" y="190" text-anchor="middle" font-size="11" fill="#D6E4F7">item i ∈ {0, ..., B-1}</text>
+
+  <text x="550" y="220" text-anchor="middle" font-size="11" fill="white" font-weight="bold">All 4 modalities of one item</text>
+  <text x="550" y="240" text-anchor="middle" font-size="11" fill="#D6E4F7">should be close in embedding space;</text>
+  <text x="550" y="258" text-anchor="middle" font-size="11" fill="#D6E4F7">different items should be far apart.</text>
+  <text x="550" y="282" text-anchor="middle" font-size="10" fill="#A8C4E0" font-style="italic">12 ordered pairs × InfoNCE = the loss</text>
+
+  <!-- Four modalities around the batch -->
+  <rect x="60" y="120" width="160" height="50" rx="8" fill="url(#gText)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="140" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">Text embeddings</text>
+  <text x="140" y="160" text-anchor="middle" font-size="10" fill="#1B2A4A">T ∈ ℝ^{B×256}</text>
+
+  <rect x="60" y="180" width="160" height="50" rx="8" fill="url(#gImage)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="140" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#1A7A4A">Image embeddings</text>
+  <text x="140" y="220" text-anchor="middle" font-size="10" fill="#1A7A4A">I ∈ ℝ^{B×256}</text>
+
+  <rect x="60" y="240" width="160" height="50" rx="8" fill="url(#gAudio)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="140" y="262" text-anchor="middle" font-size="13" font-weight="bold" fill="#7D6608">Audio embeddings</text>
+  <text x="140" y="280" text-anchor="middle" font-size="10" fill="#7D6608">A ∈ ℝ^{B×256}</text>
+
+  <rect x="60" y="300" width="160" height="50" rx="8" fill="url(#gVideo)" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="140" y="322" text-anchor="middle" font-size="13" font-weight="bold" fill="#922B21">Video embeddings</text>
+  <text x="140" y="340" text-anchor="middle" font-size="10" fill="#922B21">V ∈ ℝ^{B×256}</text>
+
+  <!-- All-to-all similarity matrix -->
+  <rect x="780" y="120" width="280" height="230" rx="8" fill="white" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="920" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B2A4A">4B × 4B similarity matrix</text>
+  <text x="920" y="160" text-anchor="middle" font-size="11" fill="#1B2A4A">within-batch, all modalities</text>
+
+  <!-- Diagonal line for positives -->
+  <line x1="800" y1="190" x2="1040" y2="330" stroke="#1A7A4A" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="1050" y="260" font-size="11" font-weight="bold" fill="#1A7A4A">↑</text>
+  <text x="1050" y="276" font-size="10" fill="#1A7A4A">positives</text>
+  <text x="1050" y="290" font-size="10" fill="#1A7A4A">(same item,</text>
+  <text x="1050" y="304" font-size="10" fill="#1A7A4A">any modality)</text>
+
+  <text x="920" y="350" text-anchor="middle" font-size="10" fill="#5D6D7E">12 InfoNCE losses summed over</text>
+  <text x="920" y="365" text-anchor="middle" font-size="10" fill="#5D6D7E">all ordered modality pairs.</text>
+
+  <!-- Arrows from batch to similarity matrix -->
+  <g stroke="#1B2A4A" stroke-width="1.5" fill="none">
+    <path d="M720 200 L780 200" marker-end="url(#arrow5)"/>
+    <path d="M720 220 L780 220" marker-end="url(#arrow5)"/>
+    <path d="M720 240 L780 240" marker-end="url(#arrow5)"/>
+    <path d="M720 260 L780 260" marker-end="url(#arrow5)"/>
+  </g>
+
+  <!-- Equation block -->
+  <rect x="40" y="400" width="1020" height="120" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="60" y="430" font-size="14" font-weight="bold" fill="#1B2A4A">Loss (averaged over 12 ordered modality pairs):</text>
+  <text x="60" y="464" font-family="Courier New, monospace" font-size="14" fill="#1B2A4A" font-weight="bold">L_contrast = (1/12) · Σ_{m1 ≠ m2} InfoNCE(emb_m1, emb_m2, τ=0.07)</text>
+  <text x="60" y="488" font-family="Courier New, monospace" font-size="12" fill="#5D6D7E">InfoNCE(a, b) = 0.5 · [CE(a·bᵀ/τ, y) + CE(b·aᵀ/τ, y)]    with y = [0, 1, ..., B-1]</text>
+  <text x="60" y="510" font-size="11" fill="#5D6D7E" font-style="italic">Symmetric cross-entropy: positives are item-aligned, all other 4B-1 in-batch items are negatives.</text>
+
+  <!-- Modality ablation box -->
+  <rect x="40" y="540" width="1020" height="140" rx="8" fill="white" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="60" y="568" font-size="14" font-weight="bold" fill="#1B2A4A">★ Headline experiment — Modality ablation (the result reviewers will remember):</text>
+  <text x="60" y="592" font-size="12" fill="#1B2A4A" font-weight="bold">Train the same WEVA architecture with:</text>
+  <text x="80" y="614" font-size="12" fill="#1B2A4A">  • 2 modalities  (text + image)  — baseline text-image retrieval</text>
+  <text x="80" y="632" font-size="12" fill="#1B2A4A">  • 3 modalities  (text + image + audio)  — does adding audio help or hurt text-image retrieval?</text>
+  <text x="80" y="650" font-size="12" fill="#1B2A4A">  • 4 modalities  (all)  — the headline</text>
+  <text x="60" y="672" font-size="11" fill="#1A7A4A" font-style="italic">★ Pass criterion: adding modalities must not hurt text-image retrieval by more than 2 R@1 points.</text>
+</svg>

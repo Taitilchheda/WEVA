@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 720" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="gHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2E75B6"/>
+    </linearGradient>
+    <linearGradient id="gWe" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EAFAF1"/>
+      <stop offset="100%" stop-color="#A9DFBF"/>
+    </linearGradient>
+    <linearGradient id="gRow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4F6F7"/>
+      <stop offset="100%" stop-color="#EAECEE"/>
+    </linearGradient>
+  </defs>
+
+  <text x="650" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#1B2A4A">Where WEVA Sits: A Comparison with Eight Prior Multimodal / Spectral Architectures</text>
+  <text x="650" y="58" text-anchor="middle" font-size="13" fill="#5D6D7E">Eight axes: parameter count, sequence-mixing cost, modal coverage, modality-agnostic backbone, amp+phase separation, training objective, retrieval head, and data scale.</text>
+
+  <!-- Header row -->
+  <rect x="20" y="80" width="200" height="40" fill="url(#gHeader)"/>
+  <text x="120" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Axis</text>
+
+  <rect x="220" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="270" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">CLIP</text>
+  <rect x="320" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="370" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">ImageBind</text>
+  <rect x="420" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="470" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">FNet</text>
+  <rect x="520" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="570" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">GFNet</text>
+  <rect x="620" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="670" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">AFNO</text>
+  <rect x="720" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="770" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Wave-PDE</text>
+  <rect x="820" y="80" width="100" height="40" fill="url(#gHeader)"/>
+  <text x="870" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">FAN</text>
+  <rect x="920" y="80" width="140" height="40" fill="url(#gWe)" stroke="#1A7A4A" stroke-width="2"/>
+  <text x="990" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1A7A4A">★ WEVA (ours)</text>
+
+  <!-- 8 axis rows -->
+  <g font-size="11" fill="#1B2A4A">
+    <!-- Row 1: Modality coverage -->
+    <rect x="20" y="120" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="145" font-weight="bold">Modalities</text>
+    <text x="270" y="145" text-anchor="middle">text + image</text>
+    <text x="370" y="145" text-anchor="middle">6 modalities</text>
+    <text x="470" y="145" text-anchor="middle">text only</text>
+    <text x="570" y="145" text-anchor="middle">image only</text>
+    <text x="670" y="145" text-anchor="middle">image only</text>
+    <text x="770" y="145" text-anchor="middle">text only</text>
+    <text x="870" y="145" text-anchor="middle">image only</text>
+    <text x="990" y="145" text-anchor="middle" font-weight="bold" fill="#1A7A4A">text+image+audio+video (1 backbone)</text>
+
+    <!-- Row 2: Sequence mixer cost -->
+    <rect x="20" y="160" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="185" font-weight="bold">Mixer cost (per layer)</text>
+    <text x="270" y="185" text-anchor="middle">O(N² d)</text>
+    <text x="370" y="185" text-anchor="middle">O(N² d) × 6</text>
+    <text x="470" y="185" text-anchor="middle">O(N log N · d)</text>
+    <text x="570" y="185" text-anchor="middle">O(N log N · d)</text>
+    <text x="670" y="185" text-anchor="middle">O(N log N · d)</text>
+    <text x="770" y="185" text-anchor="middle">O(N log N · d) + wave PDE</text>
+    <text x="870" y="185" text-anchor="middle">hybrid O(N log N · d + N² d)</text>
+    <text x="990" y="185" text-anchor="middle" font-weight="bold" fill="#1A7A4A">O(N log N · d)</text>
+
+    <!-- Row 3: Learned filter -->
+    <rect x="20" y="200" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="225" font-weight="bold">Learned spectral filter</text>
+    <text x="270" y="225" text-anchor="middle">—</text>
+    <text x="370" y="225" text-anchor="middle">—</text>
+    <text x="470" y="225" text-anchor="middle">no (fixed FFT)</text>
+    <text x="570" y="225" text-anchor="middle">yes (global)</text>
+    <text x="670" y="225" text-anchor="middle">yes (block-diag)</text>
+    <text x="770" y="225" text-anchor="middle">yes (PDE-step)</text>
+    <text x="870" y="225" text-anchor="middle">partial (FFT path)</text>
+    <text x="990" y="225" text-anchor="middle" font-weight="bold" fill="#1A7A4A">yes (amp + phase separated)</text>
+
+    <!-- Row 4: Amplitude/phase separation -->
+    <rect x="20" y="240" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="265" font-weight="bold">Amplitude + phase learned separately</text>
+    <text x="270" y="265" text-anchor="middle">—</text>
+    <text x="370" y="265" text-anchor="middle">—</text>
+    <text x="470" y="265" text-anchor="middle">no</text>
+    <text x="570" y="265" text-anchor="middle">no (single W)</text>
+    <text x="670" y="265" text-anchor="middle">no (block-diag W)</text>
+    <text x="770" y="265" text-anchor="middle">no (PDE params)</text>
+    <text x="870" y="265" text-anchor="middle">no</text>
+    <text x="990" y="265" text-anchor="middle" font-weight="bold" fill="#1A7A4A">YES (W_amp, W_phase)</text>
+
+    <!-- Row 5: Modality-agnostic backbone -->
+    <rect x="20" y="280" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="305" font-weight="bold">Modality-agnostic backbone</text>
+    <text x="270" y="305" text-anchor="middle">no (ViT + text-T)</text>
+    <text x="370" y="305" text-anchor="middle">no (per-modality)</text>
+    <text x="470" y="305" text-anchor="middle">n/a</text>
+    <text x="570" y="305" text-anchor="middle">n/a</text>
+    <text x="670" y="305" text-anchor="middle">n/a</text>
+    <text x="770" y="305" text-anchor="middle">n/a</text>
+    <text x="870" y="305" text-anchor="middle">n/a</text>
+    <text x="990" y="305" text-anchor="middle" font-weight="bold" fill="#1A7A4A">YES (one shared backbone)</text>
+
+    <!-- Row 6: FFN -->
+    <rect x="20" y="320" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="345" font-weight="bold">FFN style</text>
+    <text x="270" y="345" text-anchor="middle">GeLU</text>
+    <text x="370" y="345" text-anchor="middle">GeLU</text>
+    <text x="470" y="345" text-anchor="middle">GeLU</text>
+    <text x="570" y="345" text-anchor="middle">GeLU</text>
+    <text x="670" y="345" text-anchor="middle">GeLU</text>
+    <text x="770" y="345" text-anchor="middle">GeLU</text>
+    <text x="870" y="345" text-anchor="middle">GeLU</text>
+    <text x="990" y="345" text-anchor="middle" font-weight="bold" fill="#1A7A4A">SIREN (sin ω₀·x)</text>
+
+    <!-- Row 7: Training objective -->
+    <rect x="20" y="360" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="385" font-weight="bold">Training objective</text>
+    <text x="270" y="385" text-anchor="middle">InfoNCE (1 pair)</text>
+    <text x="370" y="385" text-anchor="middle">InfoNCE (5 pairs)</text>
+    <text x="470" y="385" text-anchor="middle">MLM + NSP</text>
+    <text x="570" y="385" text-anchor="middle">classification</text>
+    <text x="670" y="385" text-anchor="middle">regression (PDE)</text>
+    <text x="770" y="385" text-anchor="middle">LM</text>
+    <text x="870" y="385" text-anchor="middle">classification</text>
+    <text x="990" y="385" text-anchor="middle" font-weight="bold" fill="#1A7A4A">InfoNCE (12 pairs)</text>
+
+    <!-- Row 8: Modality token -->
+    <rect x="20" y="400" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="425" font-weight="bold">Modality-token routing</text>
+    <text x="270" y="425" text-anchor="middle">no</text>
+    <text x="370" y="425" text-anchor="middle">no</text>
+    <text x="470" y="425" text-anchor="middle">no</text>
+    <text x="570" y="425" text-anchor="middle">no</text>
+    <text x="670" y="425" text-anchor="middle">no</text>
+    <text x="770" y="425" text-anchor="middle">no</text>
+    <text x="870" y="425" text-anchor="middle">no</text>
+    <text x="990" y="425" text-anchor="middle" font-weight="bold" fill="#1A7A4A">YES (4 learned vectors)</text>
+
+    <!-- Row 9: Reported scale -->
+    <rect x="20" y="440" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="465" font-weight="bold">Reported scale (params)</text>
+    <text x="270" y="465" text-anchor="middle">~150M – 1B</text>
+    <text x="370" y="465" text-anchor="middle">~350M – 1.2B</text>
+    <text x="470" y="465" text-anchor="middle">~230M</text>
+    <text x="570" y="465" text-anchor="middle">~26M – 190M</text>
+    <text x="670" y="465" text-anchor="middle">~50M – 1B</text>
+    <text x="770" y="465" text-anchor="middle">~125M – 1.3B</text>
+    <text x="870" y="465" text-anchor="middle">~70M – 400M</text>
+    <text x="990" y="465" text-anchor="middle" font-weight="bold" fill="#1A7A4A">16M / 33M / 58M (RTX 3060)</text>
+
+    <!-- Row 10: Reported data scale -->
+    <rect x="20" y="480" width="200" height="40" fill="url(#gRow)"/>
+    <text x="30" y="505" font-weight="bold">Reported data</text>
+    <text x="270" y="505" text-anchor="middle">400M pairs</text>
+    <text x="370" y="505" text-anchor="middle">multi-source</text>
+    <text x="470" y="505" text-anchor="middle">C4 / GLUE</text>
+    <text x="570" y="505" text-anchor="middle">ImageNet</text>
+    <text x="670" y="505" text-anchor="middle">PDE benchmarks</text>
+    <text x="770" y="505" text-anchor="middle">WikiText-103 / CIFAR</text>
+    <text x="870" y="505" text-anchor="middle">ImageNet</text>
+    <text x="990" y="505" text-anchor="middle" font-weight="bold" fill="#1A7A4A">~50K (4-modality subset)</text>
+  </g>
+
+  <!-- Bottom: key differentiators -->
+  <rect x="20" y="540" width="1240" height="160" rx="8" fill="#F4F6F7" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="40" y="568" font-size="14" font-weight="bold" fill="#1B2A4A">★ Three structural differentiators that no prior model has together:</text>
+  <text x="40" y="595" font-size="12" fill="#1B2A4A" font-weight="bold">1.  Modality-agnostic backbone.</text>
+  <text x="60" y="613" font-size="11" fill="#1B2A4A">One shared spectral encoder and one shared SWM process all 4 modalities. ImageBind has 6 separate encoders; CLIP has 2.</text>
+  <text x="40" y="635" font-size="12" fill="#1B2A4A" font-weight="bold">2.  Amplitude + phase learned separately.</text>
+  <text x="60" y="653" font-size="11" fill="#1B2A4A">Standard complex filters use W_amp + i W_phase as one complex matrix. We use two real matrices; the phase matrix is the load-bearing novel parameter.</text>
+  <text x="40" y="675" font-size="12" fill="#1B2A4A" font-weight="bold">3.  Modality token is the ONLY modality-specific signal in the backbone.</text>
+  <text x="60" y="693" font-size="11" fill="#1B2A4A">4 learned vectors (1024 params total for d=256) replace per-modality routing, residual adapters, or cross-attention gates.</text>
+</svg>

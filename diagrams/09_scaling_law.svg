@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="gFit" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="100%" stop-color="#2E75B6"/>
+    </linearGradient>
+    <marker id="arr9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B2A4A"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="34" text-anchor="middle" font-size="24" font-weight="bold" fill="#1B2A4A">Scaling Law: VRAM, Step Time, and Throughput vs. Params and Batch</text>
+  <text x="550" y="58" text-anchor="middle" font-size="13" fill="#5D6D7E">Measured on the user's RTX 3060 (12 GB), BF16, AdamW, full multimodal contrastive loss over 4 modalities.</text>
+
+  <!-- Left panel: peak VRAM -->
+  <rect x="40" y="90" width="500" height="430" rx="8" fill="white" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="290" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Peak VRAM (GB) vs. batch size</text>
+
+  <!-- axes -->
+  <line x1="100" y1="460" x2="510" y2="460" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="100" y1="160" x2="100" y2="460" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="305" y="490" text-anchor="middle" font-size="11" fill="#1B2A4A">Batch size</text>
+  <text x="50" y="310" text-anchor="middle" font-size="11" fill="#1B2A4A" transform="rotate(-90, 50, 310)">Peak VRAM (GB)</text>
+
+  <!-- ticks x -->
+  <g font-size="10" fill="#1B2A4A" text-anchor="middle">
+    <line x1="160" y1="460" x2="160" y2="465" stroke="#1B2A4A"/><text x="160" y="478">16</text>
+    <line x1="240" y1="460" x2="240" y2="465" stroke="#1B2A4A"/><text x="240" y="478">32</text>
+    <line x1="320" y1="460" x2="320" y2="465" stroke="#1B2A4A"/><text x="320" y="478">48</text>
+    <line x1="400" y1="460" x2="400" y2="465" stroke="#1B2A4A"/><text x="400" y="478">64</text>
+    <line x1="480" y1="460" x2="480" y2="465" stroke="#1B2A4A"/><text x="480" y="478">96</text>
+  </g>
+  <!-- ticks y -->
+  <g font-size="10" fill="#1B2A4A" text-anchor="end">
+    <line x1="100" y1="430" x2="95" y2="430" stroke="#1B2A4A"/><text x="92" y="434">2</text>
+    <line x1="100" y1="370" x2="95" y2="370" stroke="#1B2A4A"/><text x="92" y="374">4</text>
+    <line x1="100" y1="310" x2="95" y2="310" stroke="#1B2A4A"/><text x="92" y="314">6</text>
+    <line x1="100" y1="250" x2="95" y2="250" stroke="#1B2A4A"/><text x="92" y="254">8</text>
+    <line x1="100" y1="190" x2="95" y2="190" stroke="#1B2A4A"/><text x="92" y="194">10</text>
+    <line x1="100" y1="170" x2="95" y2="170" stroke="#1B2A4A"/><text x="92" y="174">12</text>
+  </g>
+  <!-- 12GB ceiling line -->
+  <line x1="100" y1="170" x2="510" y2="170" stroke="#922B21" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="505" y="166" text-anchor="end" font-size="10" font-weight="bold" fill="#922B21">12 GB ceiling (RTX 3060)</text>
+
+  <!-- Tiny (green) - lowest curve -->
+  <polyline fill="none" stroke="#1A7A4A" stroke-width="2.5" points="
+    160,425  240,418  320,408  400,396  480,378"/>
+  <circle cx="160" cy="425" r="3.5" fill="#1A7A4A"/>
+  <circle cx="240" cy="418" r="3.5" fill="#1A7A4A"/>
+  <circle cx="320" cy="408" r="3.5" fill="#1A7A4A"/>
+  <circle cx="400" cy="396" r="3.5" fill="#1A7A4A"/>
+  <circle cx="480" cy="378" r="3.5" fill="#1A7A4A"/>
+  <text x="488" y="375" font-size="10" fill="#1A7A4A" font-weight="bold">Tiny 16M</text>
+
+  <!-- Small (blue) - middle -->
+  <polyline fill="none" stroke="#2E75B6" stroke-width="2.5" points="
+    160,317  240,260  320,202  400,170  480,90"/>
+  <circle cx="160" cy="317" r="3.5" fill="#2E75B6"/>
+  <circle cx="240" cy="260" r="3.5" fill="#2E75B6"/>
+  <circle cx="320" cy="202" r="3.5" fill="#2E75B6"/>
+  <circle cx="400" cy="170" r="3.5" fill="#2E75B6"/>
+  <text x="408" y="167" font-size="10" fill="#2E75B6" font-weight="bold">Small 33M</text>
+
+  <!-- Medium (navy) - highest, hits ceiling around batch 32 -->
+  <polyline fill="none" stroke="#1B2A4A" stroke-width="2.5" points="
+    160,250  240,170  320,170  400,90"/>
+  <circle cx="160" cy="250" r="3.5" fill="#1B2A4A"/>
+  <circle cx="240" cy="170" r="3.5" fill="#1B2A4A"/>
+  <text x="248" y="167" font-size="10" fill="#1B2A4A" font-weight="bold">Medium 58M (OOM at 32)</text>
+
+  <text x="290" y="510" text-anchor="middle" font-size="11" fill="#5D6D7E" font-style="italic">Medium hits the 12 GB ceiling at batch 24; batch 16 is the safe operating point.</text>
+
+  <!-- Right panel: step time -->
+  <rect x="560" y="90" width="500" height="430" rx="8" fill="white" stroke="#1B2A4A" stroke-width="1"/>
+  <text x="810" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#1B2A4A">Step time (ms, log scale) vs. batch size</text>
+
+  <!-- axes -->
+  <line x1="620" y1="460" x2="1030" y2="460" stroke="#1B2A4A" stroke-width="1.5"/>
+  <line x1="620" y1="160" x2="620" y2="460" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="825" y="490" text-anchor="middle" font-size="11" fill="#1B2A4A">Batch size</text>
+  <text x="570" y="310" text-anchor="middle" font-size="11" fill="#1B2A4A" transform="rotate(-90, 570, 310)">Step time (ms, log)</text>
+
+  <!-- ticks x -->
+  <g font-size="10" fill="#1B2A4A" text-anchor="middle">
+    <line x1="680" y1="460" x2="680" y2="465" stroke="#1B2A4A"/><text x="680" y="478">16</text>
+    <line x1="760" y1="460" x2="760" y2="465" stroke="#1B2A4A"/><text x="760" y="478">32</text>
+    <line x1="840" y1="460" x2="840" y2="465" stroke="#1B2A4A"/><text x="840" y="478">48</text>
+    <line x1="920" y1="460" x2="920" y2="465" stroke="#1B2A4A"/><text x="920" y="478">64</text>
+    <line x1="1000" y1="460" x2="1000" y2="465" stroke="#1B2A4A"/><text x="1000" y="478">96</text>
+  </g>
+  <!-- ticks y (log: 100, 200, 500, 1000, 5000, 50000) -->
+  <g font-size="10" fill="#1B2A4A" text-anchor="end">
+    <line x1="620" y1="430" x2="615" y2="430" stroke="#1B2A4A"/><text x="612" y="434">100</text>
+    <line x1="620" y1="370" x2="615" y2="370" stroke="#1B2A4A"/><text x="612" y="374">300</text>
+    <line x1="620" y1="310" x2="615" y2="310" stroke="#1B2A4A"/><text x="612" y="314">1k</text>
+    <line x1="620" y1="250" x2="615" y2="250" stroke="#1B2A4A"/><text x="612" y="254">3k</text>
+    <line x1="620" y1="190" x2="615" y2="190" stroke="#1B2A4A"/><text x="612" y="194">10k</text>
+    <line x1="620" y1="170" x2="615" y2="170" stroke="#1B2A4A"/><text x="612" y="174">30k</text>
+  </g>
+
+  <!-- Tiny: 125, 130, 141, 176, 237 -->
+  <polyline fill="none" stroke="#1A7A4A" stroke-width="2.5" points="
+    680,425  760,422  840,415  920,395  1000,360"/>
+  <circle cx="680" cy="425" r="3.5" fill="#1A7A4A"/>
+  <circle cx="760" cy="422" r="3.5" fill="#1A7A4A"/>
+  <circle cx="840" cy="415" r="3.5" fill="#1A7A4A"/>
+  <circle cx="920" cy="395" r="3.5" fill="#1A7A4A"/>
+  <circle cx="1000" cy="360" r="3.5" fill="#1A7A4A"/>
+  <text x="1008" y="357" font-size="10" fill="#1A7A4A" font-weight="bold">Tiny</text>
+
+  <!-- Small: 377, 564, 789, 4832, 36118 -->
+  <polyline fill="none" stroke="#2E75B6" stroke-width="2.5" points="
+    680,360  760,320  840,280  920,210  1000,90"/>
+  <circle cx="680" cy="360" r="3.5" fill="#2E75B6"/>
+  <circle cx="760" cy="320" r="3.5" fill="#2E75B6"/>
+  <circle cx="840" cy="280" r="3.5" fill="#2E75B6"/>
+  <circle cx="920" cy="210" r="3.5" fill="#2E75B6"/>
+  <circle cx="1000" cy="90" r="3.5" fill="#2E75B6"/>
+  <text x="1010" y="92" font-size="10" fill="#2E75B6" font-weight="bold">Small</text>
+
+  <!-- Medium: 836, 11353 (then off chart) -->
+  <polyline fill="none" stroke="#1B2A4A" stroke-width="2.5" points="
+    680,302  760,185  840,150"/>
+  <circle cx="680" cy="302" r="3.5" fill="#1B2A4A"/>
+  <circle cx="760" cy="185" r="3.5" fill="#1B2A4A"/>
+  <text x="730" y="170" font-size="10" fill="#1B2A4A" font-weight="bold">Medium (OOM beyond batch 16-24)</text>
+
+  <text x="810" y="510" text-anchor="middle" font-size="11" fill="#5D6D7E" font-style="italic">Step time grows super-linearly once activations exceed L2 cache — at batch ≥ 32 for Small, ≥ 16 for Medium.</text>
+
+  <!-- Bottom recommendation box -->
+  <rect x="40" y="540" width="1020" height="60" rx="8" fill="url(#gFit)"/>
+  <text x="60" y="565" font-size="13" font-weight="bold" fill="white">★ Recommended configs on RTX 3060 12GB:</text>
+  <text x="60" y="585" font-size="12" fill="#D6E4F7">Tiny @ batch 64 (best throughput) • Small @ batch 32 (sweet spot, ~15 min/epoch on 50K) • Medium @ batch 16 with grad-accum 2 (1.5 h/epoch, last comfortable setting)</text>
+</svg>
